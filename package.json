@@ -19,10 +19,22 @@
   "engines": {
     "node": ">=22"
   },
-  "keywords": ["video", "tts", "hyperframes", "promo", "cli", "gemini", "piper", "elevenlabs"],
+  "keywords": [
+    "video",
+    "tts",
+    "hyperframes",
+    "promo",
+    "cli",
+    "gemini",
+    "piper",
+    "elevenlabs"
+  ],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/incubit-ar/framevox"
+    "url": "https://github.com/tecnomanu/framevox"
+  },
+  "devDependencies": {
+    "semantic-release": "^25.0.3"
   }
 }
