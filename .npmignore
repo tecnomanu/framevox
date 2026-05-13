@@ -1,0 +1,10 @@
+# Dev
+.gitignore
+*.md
+!README.md
+
+# Lock files — pnpm installs from package.json
+pnpm-lock.yaml
+
+# Tests / CI
+.github/
