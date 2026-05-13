@@ -1,0 +1,27 @@
+{
+  "name": "framevox",
+  "version": "0.1.0",
+  "description": "Video production CLI — HyperFrames compositions + Gemini, Piper, ElevenLabs TTS",
+  "type": "module",
+  "bin": {
+    "framevox": "bin/framevox.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "templates",
+    "skill"
+  ],
+  "dependencies": {
+    "commander": "^12.1.0"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": ["video", "tts", "hyperframes", "promo", "cli", "gemini", "piper", "elevenlabs"],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/incubit-ar/framevox"
+  }
+}
