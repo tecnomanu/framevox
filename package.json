@@ -36,7 +36,7 @@
     "url": "https://github.com/tecnomanu/framevox"
   },
   "scripts": {
-    "postinstall": "node scripts/postinstall.mjs",
+    "postinstall": "node src/postinstall.mjs",
     "previews": "node scripts/generate-previews.mjs"
   },
   "devDependencies": {
