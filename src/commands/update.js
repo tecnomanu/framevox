@@ -1,50 +1,18 @@
-import { readFileSync } from 'fs'
-import { dirname, join } from 'path'
-import { fileURLToPath } from 'url'
+import { postUpdateSkillSync, detectAgents } from '../agent-skills.js'
+import {
+  compareVersions,
+  currentPkgVersion,
+  fetchLatestVersion,
+  isDevCheckout,
+} from '../version.js'
 import { run, runCapture, log, warn, err, bold, dim } from '../utils.js'
 
 const PACKAGE = 'framevox'
-const PKG_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..')
-
-function currentVersion() {
-  return JSON.parse(readFileSync(join(PKG_ROOT, 'package.json'), 'utf8')).version
-}
-
-function isDevCheckout() {
-  return !PKG_ROOT.includes('node_modules')
-}
-
-function fetchLatestVersion() {
-  const r = runCapture('npm', ['view', PACKAGE, 'version'])
-  if (r.status !== 0) {
-    const msg = (r.stderr || r.stdout || '').trim()
-    if (msg.includes('E404') || msg.includes('404')) {
-      err(`${PACKAGE} is not published on npm yet`)
-      console.log(dim('Publish first, then: framevox update'))
-    } else {
-      err(`Could not reach npm registry: ${msg}`)
-    }
-    process.exit(1)
-  }
-  return r.stdout.trim()
-}
-
-function compareVersions(a, b) {
-  const pa = a.split('.').map(Number)
-  const pb = b.split('.').map(Number)
-  for (let i = 0; i < 3; i++) {
-    const da = pa[i] || 0
-    const db = pb[i] || 0
-    if (da > db) return 1
-    if (da < db) return -1
-  }
-  return 0
-}
 
 export function cmdUpdate(opts) {
-  const current = currentVersion()
-  const latest  = fetchLatestVersion()
-  const cmp     = compareVersions(current, latest)
+  const current = currentPkgVersion()
+  const latest = fetchLatestVersion()
+  const cmp = compareVersions(current, latest)
 
   if (opts.check) {
     if (cmp >= 0) {
@@ -59,6 +27,7 @@ export function cmdUpdate(opts) {
   if (cmp >= 0 && !opts.force) {
     log(`Already on latest · ${bold(current)}`)
     console.log(dim('Use --force to reinstall'))
+    console.log(dim('Refresh skills only: framevox setup --skip-hf-skills'))
     return
   }
 
@@ -78,7 +47,26 @@ export function cmdUpdate(opts) {
     } catch { /* use latest from registry */ }
   }
 
+  log(`npm package · ${bold(newVersion)}`)
+
+  const agents = detectAgents()
+  if (agents.length) {
+    log(`Syncing framevox skill → ${agents.map((a) => a.label).join(', ')}`)
+    const sync = postUpdateSkillSync()
+    if (sync.synced.length) {
+      for (const { label, dest } of sync.synced) {
+        log(`${label}: ${dest}`)
+      }
+    } else if (sync.skipped) {
+      warn(sync.reason || 'Skill sync skipped')
+    }
+  } else {
+    warn('No agent apps detected — skills not synced')
+    console.log(dim('After installing Claude/Cursor/etc.: framevox setup --skip-hf-skills'))
+  }
+
+  console.log()
   log(`Done · ${bold(newVersion)}`)
   console.log(dim('Verify: framevox --version'))
-  console.log(dim('npx users: npx framevox@latest … always pulls latest without global install'))
+  console.log(dim('Full skill refresh: framevox setup'))
 }

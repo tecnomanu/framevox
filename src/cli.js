@@ -12,8 +12,10 @@ import { cmdTemplatesList } from './commands/templates.js'
 import { cmdTemplateAdd, cmdTemplateInstall } from './commands/template-manage.js'
 import { cmdUpdate } from './commands/update.js'
 import { cmdSetup } from './commands/setup.js'
+import { cmdStatus } from './commands/status.js'
 import { spawnHF }   from './utils.js'
 import { printVersionBanner, printInfoBanner } from './banner.js'
+import { getInstallStatus, printInstallHints } from './install-status.js'
 
 const VERSION = JSON.parse(
   readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', 'package.json'), 'utf8')
@@ -133,16 +135,33 @@ export function cli() {
 
   program
     .command('update')
-    .description('Update global framevox install from npm')
+    .description('Update global framevox install from npm + sync agent skills')
     .option('--check', 'Only check if a newer version is available')
     .option('--force', 'Reinstall latest even if already up to date')
     .action(cmdUpdate)
 
   program
     .command('setup')
-    .description('Install agent skills (framevox + hyperframes) for Claude/Cursor')
+    .description('First-time setup — install skills into detected agent apps')
     .option('--skip-hf-skills', 'Only sync framevox skill; skip hyperframes skills install')
     .action(cmdSetup)
 
+  program
+    .command('status')
+    .description('Show install state, detected agents, and update hints')
+    .action(cmdStatus)
+
+  if (argv.length === 0) {
+    cmdStatus()
+    return
+  }
+
   program.parse()
+
+  // First real use without setup — one-line nudge (non-blocking)
+  const sub = program.args[0]
+  if (sub && !['setup', 'update', 'status', 'add-key', 'keys'].includes(sub)) {
+    const { needsSetup } = getInstallStatus()
+    if (needsSetup) printInstallHints()
+  }
 }

@@ -119,7 +119,19 @@ apx project add /Volumes/SSDT7Shield/proyectos_varios/framevox
 apx agent add framevox-dev --role "Framevox CLI maintainer" --description "…"
 ```
 
-Project id: `ec17e2f475bb` (see `.apc/project.json`).
+Project id: `ec17e2f475bb` (see `.apc/project.json`). APX is optional — skill install uses `src/agent-skills.js` to detect Claude/Cursor/Codex/etc. and copy `skill/` into each app's global skills dir.
+
+## Install / update flow
+
+| Event | Behavior |
+|-------|----------|
+| `npm install -g framevox` (first) | postinstall → hint `framevox setup` |
+| `npm install -g framevox` (upgrade) | postinstall → auto-sync framevox skill if setup completed |
+| `framevox setup` | detect agents → sync skill + optional HF skills via `npx skills` |
+| `framevox update` | `npm install -g` latest + skill sync |
+| `framevox status` | detected agents, setup state, update hints |
+
+State file: `~/.framevox/setup.json` (never commit).
 
 ## Related skills
 

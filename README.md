@@ -50,13 +50,20 @@ Same output class — one project folder, one `voice.mp3`, one MP4. Framevox col
 
 Framevox is **skill + CLI**. It bundles the HyperFrames **CLI** as a dependency. It does **not** replace the HyperFrames **skill** — agents still need that to edit `index.html` correctly.
 
-After installing FrameVOX for Claude/Cursor, run once:
+After installing FrameVOX, run once:
 
 ```bash
 npx framevox setup
 ```
 
-This syncs the FrameVOX skill and installs `hyperframes` + `hyperframes-cli` skills globally via [skills.sh](https://skills.sh/heygen-com/hyperframes).
+Framevox **detects which agent apps you have** (Claude Code, Cursor, Codex, Antigravity, OpenCode) and installs skills only there — no APX required. Skills land in each app's global skills dir (e.g. `~/.cursor/skills/framevox`).
+
+`npm install -g framevox` prints a first-run hint. After upgrades, `framevox update` reinstalls from npm **and syncs the framevox skill** to detected apps. Check state anytime:
+
+```bash
+framevox status
+framevox update --check
+```
 
 ## Quick start
 
@@ -148,10 +155,11 @@ framevox keys                                # list key status
 framevox templates                           # list templates
 framevox templates add <name>                # copy to .framevox/templates/
 framevox templates install <name>            # install to ~/.framevox/templates/
-framevox update                              # update global install from npm
-framevox update --check                      # check for newer version
-framevox setup                               # install agent skills (Claude/Cursor)
+framevox status                              # install state + detected agents
+framevox setup                               # first-time setup (detected agent apps)
 framevox setup --skip-hf-skills              # sync framevox skill only
+framevox update                              # npm update + skill sync
+framevox update --check                      # check for newer npm version
 ```
 
 ## Voice script format (`voice.json`)

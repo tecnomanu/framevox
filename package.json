@@ -36,7 +36,7 @@
     "url": "https://github.com/tecnomanu/framevox"
   },
   "scripts": {
-    "postinstall": "node scripts/ensure-hyperframes.mjs",
+    "postinstall": "node scripts/postinstall.mjs",
     "previews": "node scripts/generate-previews.mjs"
   },
   "devDependencies": {
