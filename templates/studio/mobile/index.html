@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <title>Bitpulse · Crypto News</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    [data-composition-id="bitpulse-studio"] {
+      position: relative; width: 1080px; height: 1920px;
+      background: var(--bg); overflow: hidden;
+    }
+    .scene { padding: 120px 64px 140px; }
+    .card { width: 920px; }
+    .sticker.s1a { top: 280px; right: 72px; transform: rotate(6deg); }
+    .sticker.s1b { bottom: 360px; left: 64px; transform: rotate(-5deg); }
+  </style>
+</head>
+<body>
+
+<div id="stage" data-composition-id="bitpulse-studio" data-width="1080" data-height="1920" data-fps="30" data-duration="18" data-start="0">
+  <div class="bg-layer bg-news-gradient"></div>
+  <div class="bg-layer bg-scanlines"></div>
+  <div class="glow"></div>
+  <audio id="voice" src="voice.mp3" data-start="0.5" data-duration="16.0" data-volume="1" data-track-index="9"></audio>
+
+  <div class="news-ticker">
+    <div class="breaking-badge">BREAKING</div>
+    <div class="ticker-track">
+      <span>BTC <span class="ticker-up">+8.2%</span></span>
+      <span>ETH <span class="ticker-up">+5.4%</span></span>
+      <span>SOL <span class="ticker-up">+14.1%</span></span>
+      <span>Vol 24h · $89B</span>
+    </div>
+  </div>
+
+  <div id="splash" class="splash clip" data-start="0" data-duration="0.5" data-track-index="10">
+    <img class="brand-logo" src="assets/logo.svg" alt="Bitpulse" />
+    <div class="brand-name">Bitpulse</div>
+    <div class="brand-tagline">Mercado cripto en vivo</div>
+  </div>
+
+  <div class="scene clip" id="s1" data-start="0.5" data-duration="2.4" data-track-index="1">
+    <div class="hook-eyebrow">Bitpulse · MERCADO CRIPTO</div>
+    <div class="hook-question">Bitcoin supera los<br><span class="grad">USD 100K otra vez</span></div>
+    <div class="hook-sub">Alertas, gráficos y titulares del mercado — en un solo feed.</div>
+    <div class="sticker red s1a">En vivo</div>
+    <div class="sticker accent s1b">+8.2% hoy</div>
+  </div>
+
+  <div class="scene clip" id="s2" data-start="2.75" data-duration="3.5" data-track-index="2">
+    <div class="card-label">Mercado ahora</div>
+    <div class="card">
+      <div class="card-header">
+        <div class="mac-dots"><div class="mac-dot r"></div><div class="mac-dot y"></div><div class="mac-dot g"></div></div>
+        <div class="card-title">Top movers</div>
+        <div class="card-tag">24h</div>
+      </div>
+      <div class="card-body">
+        <div class="stats">
+          <div class="stat"><div class="stat-num">$102K</div><div class="stat-label">Bitcoin</div></div>
+          <div class="stat"><div class="stat-num">$3.8K</div><div class="stat-label">Ethereum</div></div>
+          <div class="stat"><div class="stat-num">$89B</div><div class="stat-label">Vol 24h</div></div>
+        </div>
+        <div class="row"><span class="row-name">BTC / USD</span><span class="row-meta">All-time high zone</span><span class="badge active"><span class="badge-dot"></span>+8.2%</span></div>
+        <div class="row"><span class="row-name">ETH / USD</span><span class="row-meta">Breakout watch</span><span class="badge active"><span class="badge-dot"></span>+5.4%</span></div>
+        <div class="row"><span class="row-name">SOL / USD</span><span class="row-meta">Momentum</span><span class="badge done"><span class="badge-dot"></span>+14.1%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene clip" id="s3" data-start="6.2" data-duration="3.0" data-track-index="3">
+    <div class="card-label">Alertas activas</div>
+    <div class="card">
+      <div class="card-header">
+        <div class="mac-dots"><div class="mac-dot r"></div><div class="mac-dot y"></div><div class="mac-dot g"></div></div>
+        <div class="card-title">Tu watchlist</div>
+        <div class="card-tag">6 alertas</div>
+      </div>
+      <div class="card-body">
+        <div class="kanban">
+          <div class="kanban-col">
+            <div class="kanban-label">Disparadas</div>
+            <div class="kanban-item done">BTC &gt; $100K<div class="kanban-sub">Hace 12 min</div></div>
+            <div class="kanban-item done">ETH +5%<div class="kanban-sub">Hace 34 min</div></div>
+          </div>
+          <div class="kanban-col">
+            <div class="kanban-label">Vigilando</div>
+            <div class="kanban-item active">SOL breakout<div class="kanban-sub">$148 target</div></div>
+            <div class="kanban-item active">Funding spike<div class="kanban-sub">Binance perps</div></div>
+          </div>
+          <div class="kanban-col">
+            <div class="kanban-label">Noticias</div>
+            <div class="kanban-item pending">ETF inflows<div class="kanban-sub">Reuters · hoy</div></div>
+            <div class="kanban-item pending">Halving cycle<div class="kanban-sub">Análisis · 2h</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene clip" id="s4" data-start="9.1" data-duration="2.4" data-track-index="4">
+    <div class="card-label">Tu portfolio</div>
+    <div class="card">
+      <div class="card-header">
+        <div class="mac-dots"><div class="mac-dot r"></div><div class="mac-dot y"></div><div class="mac-dot g"></div></div>
+        <div class="card-title">Resumen semanal</div>
+        <div class="card-tag">+18.2%</div>
+      </div>
+      <div class="card-body">
+        <div class="feature-list">
+          <div class="feature-row"><div class="feature-icon">₿</div><span>Bitcoin</span><span class="feature-val">$28.4k</span></div>
+          <div class="feature-row"><div class="feature-icon">◇</div><span>Ethereum</span><span class="feature-val">$12.1k</span></div>
+          <div class="feature-row"><div class="feature-icon">◎</div><span>Stablecoins</span><span class="feature-val">$7.7k</span></div>
+          <div class="feature-row"><div class="feature-icon">↑</div><span>Total</span><span class="feature-val">$48.2k</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene clip" id="s5" data-start="11.5" data-duration="6.5" data-track-index="5">
+    <img class="cta-logo" src="assets/logo.svg" alt="Bitpulse" />
+    <div class="cta-kicker">Noticias · Alertas · Gráficos</div>
+    <div class="cta-offer">Seguí el mercado<br>en tiempo real</div>
+    <div class="cta-pill">bitpulse.app</div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+const tl = gsap.timeline({ paused: true })
+tl.to('#splash', { opacity: 0, duration: 0.25, ease: 'power2.inOut' }, 0.5)
+tl.to('#s1', { opacity: 1, duration: 0 }, 0.5)
+tl.from('#s1 .hook-eyebrow',  { y: -24, opacity: 0, duration: 0.25, ease: 'power2.out' }, 0.55)
+tl.from('#s1 .hook-question', { y: 40,  opacity: 0, duration: 0.35, ease: 'power3.out' }, 0.62)
+tl.from('#s1 .hook-sub',      { y: 24,  opacity: 0, duration: 0.3,  ease: 'power2.out' }, 0.78)
+tl.from('#s1 .sticker',       { scale: 0.5, opacity: 0, stagger: 0.1, duration: 0.3, ease: 'back.out(2)' }, 0.9)
+tl.to('#s1', { opacity: 0, duration: 0.3, ease: 'power2.inOut' }, 2.45)
+tl.to('#s2', { opacity: 1, duration: 0 }, 2.75)
+tl.from('#s2 .card-label', { y: -30, opacity: 0, duration: 0.3, ease: 'power2.out' }, 2.8)
+tl.from('#s2 .card',       { y: 60,  opacity: 0, duration: 0.45, ease: 'power3.out' }, 2.88)
+tl.from('#s2 .stat',       { y: 20,  opacity: 0, stagger: 0.07, duration: 0.25, ease: 'power2.out' }, 3.15)
+tl.from('#s2 .row',        { x: -20, opacity: 0, stagger: 0.08, duration: 0.25, ease: 'power2.out' }, 3.4)
+tl.to('#s2', { opacity: 0, duration: 0.3, ease: 'power2.inOut' }, 5.95)
+tl.to('#s3', { opacity: 1, duration: 0 }, 6.2)
+tl.from('#s3 .card-label',   { y: -30, opacity: 0, duration: 0.3, ease: 'power2.out' }, 6.25)
+tl.from('#s3 .card',         { y: 60,  opacity: 0, duration: 0.45, ease: 'power3.out' }, 6.33)
+tl.from('#s3 .kanban-col',   { y: 30,  opacity: 0, stagger: 0.1, duration: 0.3, ease: 'power2.out' }, 6.6)
+tl.from('#s3 .kanban-item',  { x: -16, opacity: 0, stagger: 0.07, duration: 0.25, ease: 'power2.out' }, 6.82)
+tl.to('#s3', { opacity: 0, duration: 0.3, ease: 'power2.inOut' }, 8.9)
+tl.to('#s4', { opacity: 1, duration: 0 }, 9.1)
+tl.from('#s4 .card-label',   { y: -30, opacity: 0, duration: 0.3, ease: 'power2.out' }, 9.15)
+tl.from('#s4 .card',         { y: 60,  opacity: 0, duration: 0.45, ease: 'power3.out' }, 9.23)
+tl.from('#s4 .feature-row',  { x: -24, opacity: 0, stagger: 0.08, duration: 0.28, ease: 'power2.out' }, 9.5)
+tl.to('#s4', { opacity: 0, duration: 0.3, ease: 'power2.inOut' }, 11.2)
+tl.to('#s5', { opacity: 1, duration: 0 }, 11.5)
+tl.from('#s5 .cta-logo',   { scale: 0.6, opacity: 0, duration: 0.4, ease: 'back.out(1.5)' }, 11.55)
+tl.from('#s5 .cta-kicker', { y: -16, opacity: 0, duration: 0.3, ease: 'power2.out' }, 11.75)
+tl.from('#s5 .cta-offer',  { y: 40,  opacity: 0, duration: 0.45, ease: 'power3.out' }, 11.95)
+tl.from('#s5 .cta-pill',   { scale: 0.85, opacity: 0, duration: 0.35, ease: 'back.out(1.4)' }, 12.3)
+window.__timelines = window.__timelines || {}
+window.__timelines['bitpulse-studio'] = tl
+</script>
+</body>
+</html>

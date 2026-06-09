@@ -1,0 +1,9 @@
+{
+  "prompt": "Leé el siguiente texto en español rioplatense, con acento argentino natural de Buenos Aires. Tono ágil, informativo, como presentador de noticias financieras — energía media-alta, ritmo dinámico:",
+  "gap": 0.25,
+  "scenes": [
+    { "id": "hook", "text": "Bitcoin acaba de superar los cien mil dólares otra vez. ¿Te enteraste a tiempo?" },
+    { "id": "value", "text": "Bitpulse te manda alertas, gráficos y titulares del mercado cripto en un solo feed." },
+    { "id": "cta", "text": "Descargá Bitpulse y seguí el mercado en vivo. bitpulse punto app." }
+  ]
+}

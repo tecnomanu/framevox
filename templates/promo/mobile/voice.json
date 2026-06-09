@@ -1,0 +1,9 @@
+{
+  "prompt": "Read the following in natural, warm, confident American English. Medium-high energy, agile pace:",
+  "gap": 0.25,
+  "scenes": [
+    { "id": "hook", "text": "Who's on shift tomorrow? Who called out?" },
+    { "id": "value", "text": "Crewdesk gives you live coverage, shift swaps, and payroll-ready hours in one place." },
+    { "id": "cta", "text": "See why teams switch to Crewdesk. crewdesk dot io." }
+  ]
+}

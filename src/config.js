@@ -18,7 +18,10 @@ function parseEnvFile(path) {
       .filter(l => l.trim() && !l.startsWith('#') && l.includes('='))
       .map(l => {
         const idx = l.indexOf('=')
-        return [l.slice(0, idx).trim(), l.slice(idx + 1).trim()]
+        let val = l.slice(idx + 1).trim()
+        const hash = val.indexOf('#')
+        if (hash >= 0) val = val.slice(0, hash).trim()
+        return [l.slice(0, idx).trim(), val]
       })
   )
 }
@@ -53,14 +56,14 @@ export function listKeys() {
 }
 
 // Project config: .framevox/config.json in cwd
-export function readProjectConfig() {
-  const path = join(process.cwd(), '.framevox', 'config.json')
+export function readProjectConfig(cwd = process.cwd()) {
+  const path = join(cwd, '.framevox', 'config.json')
   if (!existsSync(path)) return {}
   return JSON.parse(readFileSync(path, 'utf8'))
 }
 
-export function writeProjectConfig(data) {
-  const dir = join(process.cwd(), '.framevox')
+export function writeProjectConfig(data, cwd = process.cwd()) {
+  const dir = join(cwd, '.framevox')
   if (!existsSync(dir)) mkdirSync(dir, { recursive: true })
   writeFileSync(join(dir, 'config.json'), JSON.stringify(data, null, 2), 'utf8')
 }

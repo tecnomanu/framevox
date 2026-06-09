@@ -1,0 +1,9 @@
+{
+  "prompt": "Leé el siguiente texto en español rioplatense, con acento argentino natural de Buenos Aires. Tono cálido, cercano, conversacional — energía media-alta, ritmo ágil:",
+  "gap": 0.25,
+  "scenes": [
+    { "id": "hook", "text": "¿Seguís persiguiendo facturas por email?" },
+    { "id": "value", "text": "Ledgerly envía presupuestos, seguimiento de pagos y cierre de mes en un solo lugar." },
+    { "id": "cta", "text": "Empezá gratis hoy. Plan básico sin costo. ledgerly punto app." }
+  ]
+}

@@ -1,36 +1,29 @@
-import { cpSync, mkdirSync, existsSync, writeFileSync } from 'fs'
-import { join, dirname } from 'path'
-import { fileURLToPath } from 'url'
-import { writeProjectConfig, readProjectConfig } from '../config.js'
+import { cpSync, mkdirSync, existsSync, writeFileSync, unlinkSync } from 'fs'
+import { ensureHyperFrames } from '../hyperframes.js'
+import { join } from 'path'
+import { writeVoiceProjectConfig } from '../voice-config.js'
+import { resolveTemplate, listTemplates, copyFamilyStyle } from '../templates.js'
 import { log, warn, bold, dim } from '../utils.js'
 
-const __dir = dirname(fileURLToPath(import.meta.url))
-const TEMPLATES_DIR = join(__dir, '..', '..', 'templates')
-
-const TEMPLATES = {
-  'mobile-promo':   { width: 1080, height: 1920, label: 'Mobile · 1080×1920 · 5-scene product promo' },
-  'desktop-promo':  { width: 1920, height: 1080, label: 'Desktop · 1920×1080 · 5-scene product promo' },
-  'mobile-minimal': { width: 1080, height: 1920, label: 'Mobile · 1080×1920 · minimal hook+CTA' },
-  'desktop-minimal':{ width: 1920, height: 1080, label: 'Desktop · 1920×1080 · minimal hook+CTA' },
-}
-
 export function cmdInit(name, opts) {
-  const template = opts.template || 'mobile-promo'
+  ensureHyperFrames()
 
-  if (!TEMPLATES[template]) {
+  const template = opts.template || 'minimal-mobile'
+  const entry = resolveTemplate(template)
+
+  if (!entry) {
     console.error(`Unknown template: ${bold(template)}`)
     console.error('Available templates:')
-    Object.entries(TEMPLATES).forEach(([k, v]) => console.error(`  ${k.padEnd(18)} ${dim(v.label)}`))
+    listTemplates().forEach(t => {
+      console.error(`  ${t.name.padEnd(18)} ${dim(t.label)} ${dim(`(${t.source})`)}`)
+    })
+    console.error()
+    console.error(dim('Add to project: framevox templates add <name>'))
+    console.error(dim('Install global: framevox templates install <name>'))
     process.exit(1)
   }
 
   const projectDir = name ? join(process.cwd(), name) : process.cwd()
-  const templateDir = join(TEMPLATES_DIR, template)
-
-  if (!existsSync(templateDir)) {
-    console.error(`Template not found at: ${templateDir}`)
-    process.exit(1)
-  }
 
   if (name) {
     if (existsSync(projectDir)) {
@@ -40,39 +33,54 @@ export function cmdInit(name, opts) {
     }
   }
 
-  // Copy template files
-  cpSync(templateDir, projectDir, { recursive: true })
+  cpSync(entry.dir, projectDir, { recursive: true })
 
-  // Create assets/ directory stub
+  // Drop template metadata — not needed in scaffolded project
+  const metaInProject = join(projectDir, 'template.json')
+  if (existsSync(metaInProject)) unlinkSync(metaInProject)
+
+  // Copy family style into project (self-contained after init)
+  if (entry.familyDir) {
+    copyFamilyStyle(entry.familyDir, join(projectDir, 'style.css'))
+  }
+
   const assetsDir = join(projectDir, 'assets')
   if (!existsSync(assetsDir)) {
     mkdirSync(assetsDir)
     writeFileSync(join(assetsDir, '.gitkeep'), '', 'utf8')
   }
 
-  // Create .framevox/config.json
-  const meta = TEMPLATES[template]
-  writeProjectConfig({
-    template,
-    width: meta.width,
-    height: meta.height,
-    provider: 'gemini',
-    created: new Date().toISOString(),
+  const rendersDir = join(projectDir, 'renders')
+  if (!existsSync(rendersDir)) mkdirSync(rendersDir)
+
+  // Fresh projects should regenerate voice — template voice.mp3 is only a reference
+  const voiceInProject = join(projectDir, 'voice.mp3')
+  if (existsSync(voiceInProject)) unlinkSync(voiceInProject)
+
+  writeVoiceProjectConfig(projectDir, {
+    base: {
+      template,
+      templateSource: entry.source,
+      family: entry.family || null,
+      width: entry.width,
+      height: entry.height,
+      created: new Date().toISOString(),
+    },
   })
 
   const dir = name || '(current directory)'
-  log(`Project ready · template: ${bold(template)}`)
+  const srcLabel = { project: 'project template', user: 'user template', builtin: 'builtin template' }[entry.source] || entry.source
+  log(`Project ready · ${bold(template)} (${srcLabel})`)
+  if (entry.family) log(`Family: ${bold(entry.family)} → style.css`)
   log(`Directory: ${bold(projectDir)}`)
   console.log()
   console.log(dim('Next steps:'))
-  console.log(dim('  1. Edit index.html — replace <!-- BRAND: --> comments with your content'))
-  console.log(dim('  2. Edit script.txt — write your voiceover script'))
-  console.log(dim('  3. Add logo.png to assets/ if needed'))
-  console.log(dim('  4. framevox voice   — generate audio'))
-  console.log(dim('  5. framevox lint    — check composition'))
-  console.log(dim('  6. framevox render  — render video'))
-  console.log(dim('  7. framevox recipe  — document the process'))
+  console.log(dim('  1. Edit DESIGN.md — brand colors, product info'))
+  console.log(dim('  2. Edit index.html — replace <!-- BRAND: --> and <!-- COPY: --> comments'))
+  console.log(dim('  3. Edit voice.json — prompt + text or scenes'))
+  console.log(dim('  4. Add logo.png to assets/ if needed'))
+  console.log(dim('  5. framevox voice → framevox render  (lint incluido; --no-lint para saltar)'))
   console.log()
-  console.log(dim('Voice provider: gemini (change in .framevox/config.json or via --provider flag)'))
-  console.log(dim('Missing API keys? Run: framevox keys'))
+  console.log(dim('Template source: project > ~/.framevox/templates > builtin'))
+  console.log(dim('API keys: framevox add-key gemini YOUR_KEY  (stored in ~/.framevox/.env)'))
 }

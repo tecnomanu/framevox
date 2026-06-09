@@ -2,6 +2,7 @@ import { readFileSync, writeFileSync, existsSync } from 'fs'
 import { join, resolve, basename } from 'path'
 import { readProjectConfig } from '../config.js'
 import { md5File, log } from '../utils.js'
+import { findVoiceJson, parseVoiceJson, formatVoiceForRecipe } from '../voice-json.js'
 
 export function cmdRecipe(title, opts) {
   const cwd    = process.cwd()
@@ -41,10 +42,11 @@ export function cmdRecipe(title, opts) {
     '',
     '## Voice script',
     '',
-    '```',
-    existsSync(join(cwd, 'script.txt'))
-      ? readFileSync(join(cwd, 'script.txt'), 'utf8').trim()
-      : '(no script.txt)',
+    '```json',
+    (() => {
+      const p = findVoiceJson(cwd)
+      return p ? formatVoiceForRecipe(parseVoiceJson(readFileSync(p, 'utf8'))) : '(no voice.json)'
+    })(),
     '```',
     '',
     '## Commands to reproduce',

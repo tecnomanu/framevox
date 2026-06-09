@@ -1,6 +1,5 @@
 import { spawnSync } from 'child_process'
-import { existsSync, readFileSync } from 'fs'
-import { join } from 'path'
+import { runHyperframes } from './hyperframes.js'
 
 export function run(cmd, args = [], opts = {}) {
   const result = spawnSync(cmd, args, { stdio: 'inherit', ...opts })
@@ -14,17 +13,8 @@ export function runCapture(cmd, args = [], opts = {}) {
   return spawnSync(cmd, args, { encoding: 'utf8', ...opts })
 }
 
-export function spawnHF(args = []) {
-  run('npx', ['hyperframes', ...args])
-}
-
-export function readScript() {
-  const path = join(process.cwd(), 'script.txt')
-  if (!existsSync(path)) {
-    console.error('No script.txt found in current directory. Create one or use --text.')
-    process.exit(1)
-  }
-  return readFileSync(path, 'utf8').trim()
+export function spawnHF(args = [], opts = {}) {
+  runHyperframes(args, opts)
 }
 
 export function md5File(path) {

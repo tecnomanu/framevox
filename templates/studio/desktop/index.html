@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Pulsefit · Promo Desktop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    [data-composition-id="pulsefit-studio-desktop"] {
+      position: relative; width: 1920px; height: 1080px;
+      background: var(--bg); overflow: hidden;
+    }
+    .glow { width: 1200px; height: 1200px; margin: -600px 0 0 -600px; }
+    .brand-logo { width: 120px; height: 120px; border-radius: 24px; }
+    .brand-name { font-size: 72px; margin-top: 24px; }
+    .brand-tagline { font-size: 32px; margin-top: 12px; }
+    .hook-eyebrow { font-size: 22px; margin-bottom: 24px; }
+    .hook-question { font-size: 64px; text-align: left; }
+    .hook-sub { font-size: 32px; margin-top: 20px; text-align: left; }
+    .card { border-radius: 24px; max-width: 860px; }
+    .card-header { padding: 20px 28px 14px; }
+    .mac-dot { width: 14px; height: 14px; }
+    .card-title { font-size: 24px; }
+    .card-tag { font-size: 18px; padding: 4px 12px; }
+    .card-body { padding: 20px 28px; }
+    .stat-num { font-size: 44px; }
+    .stat-label { font-size: 16px; }
+    .row { font-size: 20px; padding: 12px 0; }
+    .row-meta { font-size: 16px; }
+    .badge { font-size: 15px; }
+    .kanban-label { font-size: 16px; }
+    .kanban-item { font-size: 17px; padding: 10px 12px; }
+    .feature-row { font-size: 20px; padding: 14px 0; }
+    .feature-val { font-size: 28px; }
+    .cta-offer { font-size: 72px; text-align: left; }
+    .cta-pill { font-size: 40px; padding: 18px 52px; border-radius: 50px; margin-top: 36px; }
+    .sticker { position: relative; padding: 12px 22px; font-size: 22px; border-width: 2px; border-radius: 14px; }
+    .scene-headline { font-size: 44px; font-weight: 900; }
+    .scene-body { font-size: 28px; color: var(--muted); line-height: 1.4; }
+    .card-label { font-size: 40px; text-align: left; margin-bottom: 0; }
+  </style>
+</head>
+<body>
+
+<div id="stage" data-composition-id="pulsefit-studio-desktop" data-width="1920" data-height="1080" data-fps="30" data-duration="31" data-start="0">
+  <div class="glow"></div>
+  <audio id="voice" src="voice.mp3" data-start="0.5" data-duration="26.5" data-volume="1" data-track-index="9"></audio>
+
+  <div id="splash" class="splash clip" data-start="0" data-duration="0.5" data-track-index="10">
+    <img class="brand-logo" src="../mobile/assets/logo.svg" alt="Pulsefit" />
+    <div class="brand-name">Pulsefit</div>
+    <div class="brand-tagline">Fill every class</div>
+  </div>
+
+  <div class="scene clip layout-split" id="s1" data-start="0.5" data-duration="2.15" data-track-index="1">
+    <div class="hook-copy">
+      <div class="hook-eyebrow">Pulsefit · FITNESS STUDIO</div>
+      <div class="hook-question">Empty spots in your<br><span class="grad">six AM class?</span></div>
+      <div class="hook-sub">Members, waitlists, and bookings — tuned for studio owners.</div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;">
+      <div class="sticker accent" style="transform:rotate(4deg)">Fill every mat</div>
+      <div class="sticker green" style="transform:rotate(-5deg)">Waitlist auto</div>
+    </div>
+  </div>
+
+  <div class="scene clip layout-split" id="s2" data-start="2.5" data-duration="6.7" data-track-index="2">
+    <div style="flex:0.85;display:flex;flex-direction:column;justify-content:center;gap:12px;">
+      <div class="scene-headline">Class capacity</div>
+      <div class="scene-body">Track signups, no-shows, and waitlist conversions in real time.</div>
+    </div>
+    <div class="card" style="flex:1.4;">
+      <div class="card-header">
+        <div class="mac-dots"><div class="mac-dot r"></div><div class="mac-dot y"></div><div class="mac-dot g"></div></div>
+        <div class="card-title">This week</div>
+        <div class="card-tag">92% full</div>
+      </div>
+      <div class="card-body">
+        <div class="stats">
+          <div class="stat"><div class="stat-num">186</div><div class="stat-label">Bookings</div></div>
+          <div class="stat"><div class="stat-num">14</div><div class="stat-label">Waitlisted</div></div>
+          <div class="stat"><div class="stat-num">4.8</div><div class="stat-label">Avg rating</div></div>
+        </div>
+        <div class="row"><span class="row-name">Power Yoga · 6a</span><span class="row-meta">Tue · Studio A</span><span class="badge active"><span class="badge-dot"></span>2 spots</span></div>
+        <div class="row"><span class="row-name">HIIT Burn · 7:30a</span><span class="row-meta">Wed · Studio B</span><span class="badge done"><span class="badge-dot"></span>Full</span></div>
+        <div class="row"><span class="row-name">Pilates Core · 5p</span><span class="row-meta">Thu · Studio A</span><span class="badge pending"><span class="badge-dot"></span>3 waitlist</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene clip layout-split" id="s3" data-start="9.2" data-duration="6.0" data-track-index="3">
+    <div class="card" style="flex:1.4;">
+      <div class="card-header">
+        <div class="mac-dots"><div class="mac-dot r"></div><div class="mac-dot y"></div><div class="mac-dot g"></div></div>
+        <div class="card-title">Active members</div>
+        <div class="card-tag">248 total</div>
+      </div>
+      <div class="card-body">
+        <div class="kanban">
+          <div class="kanban-col"><div class="kanban-label">Checked in</div><div class="kanban-item done">Jordan Lee<div class="kanban-sub">6a Power Yoga</div></div><div class="kanban-item done">Casey Kim<div class="kanban-sub">6a Power Yoga</div></div></div>
+          <div class="kanban-col"><div class="kanban-label">Up next</div><div class="kanban-item active">Morgan Diaz<div class="kanban-sub">7:30a HIIT</div></div><div class="kanban-item active">Alex Rivera<div class="kanban-sub">7:30a HIIT</div></div></div>
+          <div class="kanban-col"><div class="kanban-label">Waitlist</div><div class="kanban-item pending">Sam Ortiz<div class="kanban-sub">Pilates · Thu 5p</div></div><div class="kanban-item pending">Riley Park<div class="kanban-sub">Pilates · Thu 5p</div></div></div>
+        </div>
+      </div>
+    </div>
+    <div style="flex:0.85;display:flex;flex-direction:column;justify-content:center;gap:12px;">
+      <div class="scene-headline">Member board</div>
+      <div class="scene-body">See check-ins, renewals, and class packs at a glance.</div>
+    </div>
+  </div>
+
+  <div class="scene clip layout-split" id="s4" data-start="15.2" data-duration="5.9" data-track-index="4">
+    <div style="flex:0.85;display:flex;flex-direction:column;justify-content:center;gap:12px;">
+      <div class="scene-headline">Revenue snapshot</div>
+      <div class="scene-body">Memberships, class packs, and drop-ins in one view.</div>
+    </div>
+    <div class="card" style="flex:1.4;">
+      <div class="card-header">
+        <div class="mac-dots"><div class="mac-dot r"></div><div class="mac-dot y"></div><div class="mac-dot g"></div></div>
+        <div class="card-title">March revenue</div>
+        <div class="card-tag">+12% MoM</div>
+      </div>
+      <div class="card-body">
+        <div class="feature-list">
+          <div class="feature-row"><div class="feature-icon">◆</div><span>Memberships</span><span class="feature-val">$18.4k</span></div>
+          <div class="feature-row"><div class="feature-icon">◇</div><span>Class packs</span><span class="feature-val">$6.2k</span></div>
+          <div class="feature-row"><div class="feature-icon">◎</div><span>Drop-ins</span><span class="feature-val">$2.1k</span></div>
+          <div class="feature-row"><div class="feature-icon">↑</div><span>Retention</span><span class="feature-val">94%</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene clip layout-split" id="s5" data-start="21.1" data-duration="8.4" data-track-index="5">
+    <div class="cta-copy">
+      <img class="cta-logo" src="../mobile/assets/logo.svg" alt="Pulsefit" style="width:100px;height:100px;margin-bottom:28px;" />
+      <div class="cta-offer">30 days free · No card required</div>
+      <div class="cta-pill">pulsefit.co</div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:28px;">
+      <div class="sticker accent" style="transform:rotate(4deg)">Fill every mat</div>
+      <div class="sticker green" style="transform:rotate(-5deg)">Waitlist auto</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+const tl = gsap.timeline({ paused: true })
+tl.to('#splash', { opacity: 0, duration: 0.25, ease: 'power2.inOut' }, 0.5)
+tl.to('#s1', { opacity: 1, duration: 0 }, 0.5)
+tl.from('#s1 .hook-eyebrow',  { y: -24, opacity: 0, duration: 0.3, ease: 'power2.out' }, 0.55)
+tl.from('#s1 .hook-question', { y: 40,  opacity: 0, duration: 0.4, ease: 'power3.out' }, 0.65)
+tl.from('#s1 .hook-sub',      { y: 24,  opacity: 0, duration: 0.35,ease: 'power2.out' }, 0.85)
+tl.from('#s1 .sticker',       { scale: 0.5, opacity: 0, stagger: 0.12, duration: 0.35, ease: 'back.out(2)' }, 1.0)
+tl.to('#s1', { opacity: 0, duration: 0.35, ease: 'power2.inOut' }, 2.15)
+tl.to('#s2', { opacity: 1, duration: 0 }, 2.5)
+tl.from('#s2 .card-label', { y: -30, opacity: 0, duration: 0.35, ease: 'power2.out' }, 2.55)
+tl.from('#s2 .card',       { y: 60,  opacity: 0, duration: 0.5,  ease: 'power3.out' }, 2.65)
+tl.from('#s2 .stat',       { y: 20,  opacity: 0, stagger: 0.08, duration: 0.3, ease: 'power2.out' }, 3.0)
+tl.from('#s2 .row',        { x: -20, opacity: 0, stagger: 0.1,  duration: 0.3, ease: 'power2.out' }, 3.3)
+tl.to('#s2', { opacity: 0, duration: 0.35, ease: 'power2.inOut' }, 8.85)
+tl.to('#s3', { opacity: 1, duration: 0 }, 9.2)
+tl.from('#s3 .card-label',   { y: -30, opacity: 0, duration: 0.35, ease: 'power2.out' }, 9.25)
+tl.from('#s3 .card',         { y: 60,  opacity: 0, duration: 0.5,  ease: 'power3.out' }, 9.35)
+tl.from('#s3 .kanban-col',   { y: 30,  opacity: 0, stagger: 0.12, duration: 0.35, ease: 'power2.out' }, 9.7)
+tl.from('#s3 .kanban-item',  { x: -16, opacity: 0, stagger: 0.08, duration: 0.28, ease: 'power2.out' }, 9.95)
+tl.to('#s3', { opacity: 0, duration: 0.35, ease: 'power2.inOut' }, 14.85)
+tl.to('#s4', { opacity: 1, duration: 0 }, 15.2)
+tl.from('#s4 .card-label',   { y: -30, opacity: 0, duration: 0.35, ease: 'power2.out' }, 15.25)
+tl.from('#s4 .card',         { y: 60,  opacity: 0, duration: 0.5,  ease: 'power3.out' }, 15.35)
+tl.from('#s4 .feature-row',  { x: -24, opacity: 0, stagger: 0.1,  duration: 0.32, ease: 'power2.out' }, 15.7)
+tl.to('#s4', { opacity: 0, duration: 0.35, ease: 'power2.inOut' }, 20.75)
+tl.to('#s5', { opacity: 1, duration: 0 }, 21.1)
+tl.from('#s5 .cta-logo',   { scale: 0.6, opacity: 0, duration: 0.45, ease: 'back.out(1.5)' }, 21.15)
+tl.from('#s5 .cta-offer',  { y: 40,  opacity: 0, duration: 0.5,  ease: 'power3.out' }, 21.45)
+tl.from('#s5 .cta-pill',   { scale: 0.85, opacity: 0, duration: 0.4, ease: 'back.out(1.4)' }, 21.85)
+window.__timelines = window.__timelines || {}
+window.__timelines['pulsefit-studio-desktop'] = tl
+</script>
+</body>
+</html>

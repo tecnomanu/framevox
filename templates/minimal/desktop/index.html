@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Ledgerly · Minimal Desktop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    [data-composition-id="ledgerly-minimal-desktop"] {
+      position: relative; width: 1920px; height: 1080px;
+      background: var(--bg); overflow: hidden;
+    }
+    .glow { width: 1200px; height: 1200px; margin: -600px 0 0 -600px; }
+    .scene { padding: 80px 120px; }
+    .brand-logo { width: 120px; height: 120px; border-radius: 24px; }
+    .brand-name { font-size: 64px; margin-top: 20px; }
+    .brand-tagline { font-size: 28px; margin-top: 10px; }
+    .eyebrow { font-size: 22px; margin-bottom: 20px; }
+    .headline { font-size: 72px; text-align: left; }
+    .sub { font-size: 32px; text-align: left; margin-top: 20px; }
+    .card { max-width: 780px; border-radius: 24px; }
+    .card-header { padding: 20px 28px 14px; }
+    .mac-dot { width: 14px; height: 14px; }
+    .card-title { font-size: 24px; }
+    .card-tag { font-size: 18px; }
+    .card-body { padding: 20px 28px; }
+    .stat-num { font-size: 44px; }
+    .stat-label { font-size: 16px; }
+    .row { font-size: 20px; padding: 12px 0; }
+    .row-meta { font-size: 16px; }
+    .badge { font-size: 15px; }
+    .card-label { font-size: 40px; margin-bottom: 24px; text-align: left; width: auto; }
+    .offer { font-size: 56px; text-align: left; }
+    .pill { font-size: 36px; padding: 18px 48px; margin-top: 32px; }
+    .cta-logo { width: 100px; height: 100px; }
+    .layout-split { gap: 80px; padding: 60px 100px; flex-direction: row; }
+    .hook-copy { flex: 1; }
+    .cta-copy { flex: 1; align-items: flex-start; }
+  </style>
+</head>
+<body>
+
+<div id="stage" data-composition-id="ledgerly-minimal-desktop" data-width="1920" data-height="1080" data-fps="30" data-duration="21" data-start="0">
+  <div class="glow"></div>
+  <audio id="voice" src="voice.mp3" data-start="0.5" data-duration="18.0" data-volume="1" data-track-index="9"></audio>
+
+  <div id="splash" class="splash clip" data-start="0" data-duration="0.5" data-track-index="10">
+    <img class="brand-logo" src="../mobile/assets/logo.svg" alt="Ledgerly" />
+    <div class="brand-name">Ledgerly</div>
+    <div class="brand-tagline">Invoices that close faster</div>
+  </div>
+
+  <div class="scene clip layout-split" id="s1" data-start="0.5" data-duration="6" data-track-index="0">
+    <div class="hook-copy">
+      <div class="eyebrow">Ledgerly · INVOICING</div>
+      <div class="headline">Still chasing payments by email?<br><span class="grad">Invoices that close faster.</span></div>
+      <div class="sub">Send, track, and get paid — without the spreadsheet chaos.</div>
+    </div>
+  </div>
+
+  <div class="scene clip layout-split" id="s2" data-start="6.65" data-duration="6" data-track-index="1">
+    <div class="hook-copy">
+      <div class="card-label">Open invoices</div>
+    </div>
+    <div class="card" style="flex:1.2;">
+      <div class="card-header">
+        <div class="mac-dots"><div class="mac-dot r"></div><div class="mac-dot y"></div><div class="mac-dot g"></div></div>
+        <div class="card-title">March billing</div>
+        <div class="card-tag">$24.8k due</div>
+      </div>
+      <div class="card-body">
+        <div class="stats">
+          <div class="stat"><div class="stat-num">18</div><div class="stat-label">Open</div></div>
+          <div class="stat"><div class="stat-num">$24.8k</div><div class="stat-label">Outstanding</div></div>
+          <div class="stat"><div class="stat-num">4.2d</div><div class="stat-label">Avg. pay</div></div>
+        </div>
+        <div class="row"><span class="row-name">Northwind Studio</span><span class="row-meta">#INV-2041 · $3,200</span><span class="badge active"><span class="badge-dot"></span>Sent</span></div>
+        <div class="row"><span class="row-name">Brightline Co.</span><span class="row-meta">#INV-2038 · $1,450</span><span class="badge pending"><span class="badge-dot"></span>Due Fri</span></div>
+        <div class="row"><span class="row-name">Harbor Labs</span><span class="row-meta">#INV-2035 · $890</span><span class="badge done"><span class="badge-dot"></span>Paid</span></div>
+        <div class="row"><span class="row-name">Summit Agency</span><span class="row-meta">#INV-2032 · $2,100</span><span class="badge active"><span class="badge-dot"></span>Viewed</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scene clip layout-split" id="s3" data-start="12.65" data-duration="6.85" data-track-index="2">
+    <div class="cta-copy">
+      <img class="cta-logo" src="../mobile/assets/logo.svg" alt="Ledgerly" />
+      <div class="offer">30 days free · No card required</div>
+      <div class="pill">ledgerly.app</div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script>
+const tl = gsap.timeline({ paused: true })
+tl.to('#splash', { opacity: 0, duration: 0.25, ease: 'power2.inOut' }, 0.5)
+tl.to('#s1', { opacity: 1, duration: 0 }, 0.5)
+tl.from('#s1 .eyebrow',  { y: -24, opacity: 0, duration: 0.35, ease: 'power2.out' }, 0.55)
+tl.from('#s1 .headline', { y: 48,  opacity: 0, duration: 0.5,  ease: 'power3.out' }, 0.65)
+tl.from('#s1 .sub',      { y: 28,  opacity: 0, duration: 0.4,  ease: 'power2.out' }, 0.95)
+tl.to('#s1', { opacity: 0, duration: 0.4, ease: 'power2.inOut' }, 7.25)
+tl.to('#s2', { opacity: 1, duration: 0 }, 7.65)
+tl.from('#s2 .card-label', { y: -30, opacity: 0, duration: 0.35, ease: 'power2.out' }, 7.75)
+tl.from('#s2 .card',       { y: 60,  opacity: 0, duration: 0.5,  ease: 'power3.out' }, 7.85)
+tl.from('#s2 .stat',       { y: 20,  opacity: 0, stagger: 0.08, duration: 0.3, ease: 'power2.out' }, 8.2)
+tl.from('#s2 .row',        { x: -20, opacity: 0, stagger: 0.1,  duration: 0.3, ease: 'power2.out' }, 8.5)
+tl.to('#s2', { opacity: 0, duration: 0.4, ease: 'power2.inOut' }, 13.25)
+tl.to('#s3', { opacity: 1, duration: 0 }, 13.65)
+tl.from('#s3 .cta-logo', { scale: 0.6, opacity: 0, duration: 0.45, ease: 'back.out(1.5)' }, 13.75)
+tl.from('#s3 .offer',    { y: 36,  opacity: 0, duration: 0.5,  ease: 'power3.out' }, 14.1)
+tl.from('#s3 .pill',     { scale: 0.85, opacity: 0, duration: 0.4, ease: 'back.out(1.4)' }, 14.5)
+window.__timelines = window.__timelines || {}
+window.__timelines['ledgerly-minimal-desktop'] = tl
+</script>
+</body>
+</html>
