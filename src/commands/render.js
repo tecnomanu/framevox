@@ -3,9 +3,12 @@ import { join, resolve } from 'path'
 import { readProjectConfig, writeProjectConfig } from '../config.js'
 import { runHyperframes } from '../hyperframes.js'
 import { findIndexHtml, syncVoiceDurationInHtml } from '../timing.js'
+import { printCommandHeader } from '../banner.js'
+import { pkgVersion } from '../agent-skills.js'
 import { log, err, warn } from '../utils.js'
 
 export function cmdRender(opts) {
+  printCommandHeader(pkgVersion())
   const outFile = opts.out || 'output.mp4'
   const quality = opts.quality || 'normal'
   const skipLint = opts.noLint === true

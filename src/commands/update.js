@@ -5,6 +5,7 @@ import {
   fetchLatestVersion,
   isDevCheckout,
 } from '../version.js'
+import { printCommandHeader } from '../banner.js'
 import { run, runCapture, log, warn, err, bold, dim } from '../utils.js'
 
 const PACKAGE = 'framevox'
@@ -13,6 +14,10 @@ export function cmdUpdate(opts) {
   const current = currentPkgVersion()
   const latest = fetchLatestVersion()
   const cmp = compareVersions(current, latest)
+
+  if (!opts.check) {
+    printCommandHeader(current)
+  }
 
   if (opts.check) {
     if (cmp >= 0) {
@@ -67,6 +72,6 @@ export function cmdUpdate(opts) {
 
   console.log()
   log(`Done · ${bold(newVersion)}`)
-  console.log(dim('Verify: framevox --version'))
+  console.log(dim('Verify: framevox --version  (or: npx framevox@latest)'))
   console.log(dim('Full skill refresh: framevox setup'))
 }

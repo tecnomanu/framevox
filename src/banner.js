@@ -107,26 +107,38 @@ function pkgMeta() {
   return JSON.parse(readFileSync(join(PKG_ROOT, 'package.json'), 'utf8'))
 }
 
-export function printVersionBanner(version) {
+/** Full ASCII logo + wordmark — status, --version */
+export function printLogoBanner(version) {
   const lines = renderLogo()
-  console.log('')
-  for (const line of lines) console.log(line)
-  console.log('')
-  console.log(supportsColor() ? dim(`v${version}`) : `v${version}`)
-  console.log('')
-}
-
-export function printInfoBanner(version) {
-  const meta = pkgMeta()
-  const lines = renderLogo()
-  const hf = hyperframesVersion()
-
   console.log('')
   for (const line of lines) console.log(line)
   console.log('')
   console.log(supportsColor() ? colorWordmark() + dim(`  v${version}`) : `FrameVox v${version}`)
   console.log(dim(TAGLINE))
   console.log('')
+}
+
+/** Compact wordmark — setup, update, init, voice, render */
+export function printCommandHeader(version) {
+  console.log('')
+  if (supportsColor()) {
+    console.log(colorWordmark() + dim(`  v${version}`))
+    console.log(dim(TAGLINE))
+  } else {
+    console.log(`FrameVox v${version}`)
+    console.log(TAGLINE)
+  }
+  console.log('')
+}
+
+export function printVersionBanner(version) {
+  printLogoBanner(version)
+}
+
+export function printInfoBanner(version) {
+  const meta = pkgMeta()
+  printLogoBanner(version)
+  const hf = hyperframesVersion()
 
   const rows = [
     ['Node', process.version],

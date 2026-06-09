@@ -3,9 +3,12 @@ import { ensureHyperFrames } from '../hyperframes.js'
 import { join } from 'path'
 import { writeVoiceProjectConfig } from '../voice-config.js'
 import { resolveTemplate, listTemplates, copyFamilyStyle } from '../templates.js'
+import { printCommandHeader } from '../banner.js'
+import { pkgVersion } from '../agent-skills.js'
 import { log, warn, bold, dim } from '../utils.js'
 
 export function cmdInit(name, opts) {
+  printCommandHeader(pkgVersion())
   ensureHyperFrames()
 
   const template = opts.template || 'minimal-mobile'

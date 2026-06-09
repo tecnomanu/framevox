@@ -32,7 +32,7 @@ function handleGlobalFlags(argv) {
   }
 }
 
-export function cli() {
+export async function cli() {
   const argv = process.argv.slice(2)
   handleGlobalFlags(argv)
 
@@ -152,11 +152,11 @@ export function cli() {
     .action(cmdStatus)
 
   if (argv.length === 0) {
-    cmdStatus()
+    await cmdStatus()
     return
   }
 
-  program.parse()
+  await program.parseAsync(argv)
 
   // First real use without setup — one-line nudge (non-blocking)
   const sub = program.args[0]

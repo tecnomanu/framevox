@@ -1,5 +1,7 @@
 import { compareVersions, fetchLatestVersion } from './version.js'
 import { detectAgents, pkgVersion, readSetupState } from './agent-skills.js'
+import { printLogoBanner } from './banner.js'
+import { confirm, isInteractiveTTY } from './prompt.js'
 import { dim, bold, warn, log } from './utils.js'
 
 export function getInstallStatus({ checkRegistry = false } = {}) {
@@ -17,9 +19,6 @@ export function getInstallStatus({ checkRegistry = false } = {}) {
     } catch {
       /* offline or unpublished */
     }
-  } else if (state?.version && state.version !== version) {
-    // Local package bumped but skills may be stale
-    updateAvailable = null
   }
 
   const skillsStale = Boolean(
@@ -37,7 +36,7 @@ export function getInstallStatus({ checkRegistry = false } = {}) {
   }
 }
 
-export function printInstallHints({ context = 'cli' } = {}) {
+export function printInstallHints({ context = 'cli', interactive = false } = {}) {
   const status = getInstallStatus({ checkRegistry: context !== 'postinstall' })
   const agentNames = status.agents.map((a) => a.label).join(', ') || 'none detected'
 
@@ -46,7 +45,7 @@ export function printInstallHints({ context = 'cli' } = {}) {
     console.log(dim(`  Detected agents: ${agentNames}`))
     console.log(dim('  Run: framevox setup'))
     console.log(dim('  Installs framevox + hyperframes skills into each detected app'))
-    return
+    return false
   }
 
   if (status.skillsStale) {
@@ -57,30 +56,46 @@ export function printInstallHints({ context = 'cli' } = {}) {
 
   if (status.updateAvailable) {
     log(`Update available · ${bold(status.version)} → ${bold(status.updateAvailable)}`)
-    console.log(dim('  Run: framevox update'))
+    if (!interactive || !isInteractiveTTY()) {
+      console.log(dim('  Run: framevox update'))
+    }
+    return true
   }
+
+  return false
 }
 
-export function printStatus() {
+export async function printStatus({ interactive = true } = {}) {
   const status = getInstallStatus({ checkRegistry: true })
   const agentNames = status.agents.map((a) => a.label).join(', ') || dim('none')
 
-  console.log('')
-  log(`Framevox ${bold(`v${status.version}`)}`)
+  printLogoBanner(status.version)
   console.log(dim(`Agents detected: ${agentNames}`))
 
   if (status.needsSetup) {
     console.log(dim('Setup: not completed'))
-    printInstallHints()
+    printInstallHints({ interactive })
   } else {
     const synced = status.state.agents?.join(', ') || '—'
     console.log(dim(`Setup: complete · skills v${status.state.version || '?'} · ${synced}`))
-    if (status.skillsStale) printInstallHints()
-    else if (status.updateAvailable) printInstallHints()
-    else console.log(dim('Status: up to date'))
+    if (status.skillsStale) {
+      printInstallHints({ interactive })
+    } else if (status.updateAvailable) {
+      const hasUpdate = printInstallHints({ interactive })
+      if (hasUpdate && interactive && isInteractiveTTY()) {
+        console.log('')
+        const yes = await confirm(
+          `Update available (${status.version} → ${status.updateAvailable}). Update now? [y/N] `,
+        )
+        if (yes) return 'update'
+      }
+    } else {
+      console.log(dim('Status: up to date'))
+    }
   }
 
   console.log('')
   console.log(dim('Commands: init · voice · render · setup · update'))
   console.log('')
+  return null
 }

@@ -7,8 +7,11 @@ import { syncVoiceProjectConfig } from '../voice-config.js'
 import { readVoiceJson } from '../voice-json.js'
 import { existsSync } from 'fs'
 import { join, isAbsolute, resolve } from 'path'
+import { printCommandHeader } from '../banner.js'
+import { pkgVersion } from '../agent-skills.js'
 
 export async function cmdVoice(opts) {
+  printCommandHeader(pkgVersion())
   const voiceFile = syncVoiceProjectConfig()
   const voiceData = voiceFile ?? readVoiceJson().data
 

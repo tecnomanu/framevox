@@ -3,15 +3,17 @@ import {
   detectAgents,
   installHyperframesSkills,
   markSetupComplete,
+  pkgVersion,
   syncFramevoxSkill,
 } from '../agent-skills.js'
+import { printCommandHeader } from '../banner.js'
 import { log, warn, dim, bold } from '../utils.js'
 
 export function cmdSetup(opts) {
+  printCommandHeader(pkgVersion())
   const agents = detectAgents()
 
-  log('Framevox setup — CLI deps + agent skills')
-  console.log()
+  log('Setup — CLI deps + agent skills')
 
   if (!agents.length) {
     warn('No agent apps detected (Claude, Cursor, Codex, Antigravity, OpenCode)')
