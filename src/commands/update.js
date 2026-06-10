@@ -1,3 +1,4 @@
+import { tmpdir } from 'os'
 import { postUpdateSkillSync, detectAgents } from '../agent-skills.js'
 import {
   compareVersions,
@@ -37,11 +38,12 @@ export function cmdUpdate(opts) {
   }
 
   if (isDevCheckout()) {
-    warn('Running from source checkout — this installs the global npm package')
+    warn('Running from source checkout — installing global npm package (not this folder)')
   }
 
   log(`Updating ${PACKAGE} · ${current} → ${latest}`)
-  run('npm', ['install', '-g', `${PACKAGE}@latest`])
+  // Neutral cwd: npm install -g framevox inside the repo can shadow the registry package.
+  run('npm', ['install', '-g', `${PACKAGE}@${latest}`], { cwd: tmpdir() })
 
   const installed = runCapture('npm', ['list', '-g', PACKAGE, '--depth=0', '--json'])
   let newVersion = latest
@@ -53,6 +55,10 @@ export function cmdUpdate(opts) {
   }
 
   log(`npm package · ${bold(newVersion)}`)
+  if (compareVersions(newVersion, latest) < 0) {
+    warn(`Global install is still ${bold(newVersion)} (expected ${bold(latest)})`)
+    console.log(dim('Try: cd /tmp && npm install -g framevox@latest'))
+  }
 
   const agents = detectAgents()
   if (agents.length) {
