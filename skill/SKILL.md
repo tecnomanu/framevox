@@ -22,6 +22,24 @@ npx framevox setup
 Installs framevox skill + HyperFrames companion skills (`hyperframes`, `hyperframes-cli`).
 HyperFrames CLI is already bundled via npm; skills teach composition authoring.
 
+### Version check (every session — mandatory)
+
+**Before any framevox work**, check for a newer CLI release:
+
+```bash
+framevox update --check
+```
+
+(`framevox status` also shows update hints.)
+
+| Result | Agent action |
+|--------|----------------|
+| Up to date | Continue silently |
+| Update available | **Tell the user** their global install is behind and they should run `framevox update` in their terminal (npm + skill sync). Do **not** run global `npm install -g` unless they ask. |
+| `update` shows help or flags fail | Likely old broken CLI — tell user: `cd /tmp && npm install -g framevox@latest`, then `framevox --version` |
+
+After the user updates, re-run `framevox setup --skip-hf-skills` if skills may be stale.
+
 | Task | Use |
 |------|-----|
 | `init`, `voice`, `render`, templates | **framevox** skill + CLI |
