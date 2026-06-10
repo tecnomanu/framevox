@@ -3,6 +3,7 @@ import { join, resolve } from 'path'
 import { readProjectConfig, writeProjectConfig } from '../config.js'
 import { runHyperframes } from '../hyperframes.js'
 import { findIndexHtml, syncVoiceDurationInHtml } from '../timing.js'
+import { defaultSplashPath, extractSplashFromVideo } from '../splash-screenshot.js'
 import { printCommandHeader } from '../banner.js'
 import { pkgVersion } from '../agent-skills.js'
 import { log, err, warn } from '../utils.js'
@@ -43,14 +44,29 @@ export function cmdRender(opts) {
   log(`Rendering → ${outFile}  (quality: ${quality})`)
   runHyperframes(hfArgs, { cwd: renderCwd })
 
+  const resolvedOut = resolve(outFile)
+  const splashPath = opts.splashOut
+    ? resolve(opts.splashOut)
+    : defaultSplashPath(resolvedOut)
+
   const config = readProjectConfig()
   config.lastRender = {
-    file: resolve(outFile),
+    file: resolvedOut,
     quality,
     timestamp: new Date().toISOString(),
   }
+
+  if (opts.splash !== false) {
+    log(`Splash screenshot → ${splashPath}`)
+    extractSplashFromVideo(resolvedOut, splashPath)
+    config.lastRender.splash = splashPath
+  }
+
   writeProjectConfig(config)
 
-  log(`Done → ${resolve(outFile)}`)
-  log('Run: open ' + outFile)
+  log(`Done → ${resolvedOut}`)
+  log('Run: open ' + resolvedOut)
+  if (opts.splash !== false) {
+    log('Run: open ' + splashPath)
+  }
 }

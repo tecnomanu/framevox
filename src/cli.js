@@ -5,6 +5,7 @@ import { Command } from 'commander'
 import { cmdInit }   from './commands/init.js'
 import { cmdVoice }  from './commands/voice.js'
 import { cmdRender } from './commands/render.js'
+import { cmdExtractSplash } from './commands/extract-splash.js'
 import { cmdRecipe } from './commands/recipe.js'
 import { cmdAddKey } from './commands/add-key.js'
 import { cmdKeys }   from './commands/keys.js'
@@ -72,7 +73,20 @@ export async function cli() {
     .option('-o, --out <file>',          'Output MP4 file', 'output.mp4')
     .option('--quality <quality>',       'draft | normal | high', 'normal')
     .option('--no-lint',                 'Skip HyperFrames lint before render')
+    .option('--no-splash',               'Skip splash.png screenshot after render')
+    .option('--splash-out <file>',       'Splash PNG path (default: splash.png beside --out)')
     .action(cmdRender)
+
+  const extract = program
+    .command('extract')
+    .description('Extract assets from a composition or render')
+
+  extract
+    .command('splash')
+    .description('Extract splash frame as PNG (from output.mp4 or HyperFrames snapshot)')
+    .option('-o, --out <file>',          'Output PNG file', 'splash.png')
+    .option('--from <file>',             'Source MP4 (default: output.mp4 if present, else snapshot at t=0)')
+    .action(cmdExtractSplash)
 
   program
     .command('lint')
