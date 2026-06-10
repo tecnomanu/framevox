@@ -156,7 +156,7 @@ export async function cli() {
     return
   }
 
-  await program.parseAsync(argv)
+  await program.parseAsync(argv, { from: 'user' })
 
   // First real use without setup — one-line nudge (non-blocking)
   const sub = program.args[0]
