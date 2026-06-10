@@ -1,6 +1,6 @@
 {
   "name": "framevox",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Video production CLI — HyperFrames compositions + Gemini, Piper, ElevenLabs TTS",
   "type": "module",
   "bin": {
